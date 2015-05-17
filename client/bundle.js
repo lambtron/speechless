@@ -39,7 +39,6 @@ App.prototype.afterMount = function (el, props, state) {
   var url = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC";
 
   request.get(url).end(function (err, res) {
-    console.log(res.body);
     setState({ imgUrl: res.body.data.image_original_url });
   });
 };
@@ -50,9 +49,15 @@ App.prototype.afterMount = function (el, props, state) {
 
 App.prototype.render = function (props, state) {
   var imgUrl = state.imgUrl || "";
+
+  function newSlide() {
+    console.log("hello");
+    location.reload();
+  }
+
   return dom(
     "div",
-    null,
+    { onKeyUp: newSlide },
     dom("img", { src: imgUrl, style: "width: 100%; height: 100%" })
   );
 };

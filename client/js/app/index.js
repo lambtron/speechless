@@ -35,7 +35,6 @@ App.prototype.afterMount = function(el, props, state) {
   request
     .get(url)
     .end(function(err, res) {
-      console.log(res.body);
       setState({ imgUrl: res.body.data.image_original_url });
   });
 };
@@ -46,8 +45,14 @@ App.prototype.afterMount = function(el, props, state) {
 
 App.prototype.render = function(props, state) {
   var imgUrl = state.imgUrl || '';
+
+  function newSlide() {
+    console.log('hello');
+    location.reload();
+  }
+
   return (
-    <div>
+    <div onKeyUp={newSlide}>
       <img src={imgUrl} style='width: 100%; height: 100%' />
     </div>
   );
