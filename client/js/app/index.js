@@ -32,6 +32,12 @@ App.prototype.afterMount = function(el, props, state) {
   var setState = this.setState.bind(this);
   var url = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC';
 
+  function reload() {
+    location.reload();
+  }
+
+  window.addEventListener('keyup', reload);
+
   request
     .get(url)
     .end(function(err, res) {
@@ -46,13 +52,8 @@ App.prototype.afterMount = function(el, props, state) {
 App.prototype.render = function(props, state) {
   var imgUrl = state.imgUrl || '';
 
-  function newSlide() {
-    console.log('hello');
-    location.reload();
-  }
-
   return (
-    <div onKeyUp={newSlide}>
+    <div>
       <img src={imgUrl} style='width: 100%; height: 100%' />
     </div>
   );
